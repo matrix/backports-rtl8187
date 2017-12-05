@@ -17,7 +17,6 @@ Yes, I was wrong ... the coordinates, I was born on the wrong planet.
 Patch the linux wireless [backports](https://backports.wiki.kernel.org/index.php/Main_Page) to enable:
 <br>
 * Master mode
-<br>
 * Packet Injection
 <br>
 
@@ -40,11 +39,10 @@ $ ./build.sh -i
 <br>
 
 ## Notes
-* If you want, you can uninstall *backports-rtl8187* by using the script:
+If you want, you can uninstall *backports-rtl8187* by using the script:
 ```sh
 $ ./build.sh -u
 ```
 
-<br>
 <br>
 That's all folks ;)
