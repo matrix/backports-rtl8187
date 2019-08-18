@@ -11,7 +11,6 @@ UNINSTALL=0
 
 if [ $EUID -eq 0 ]; then
 	echo "This script must not be run as root" 1>&2
-	exit 1
 fi
 
 function usage()
@@ -60,7 +59,7 @@ if [ ${BUILD} -eq 1 ]; then
 	rm -rf tmp
 
 	if [ ! -f "backports.tar.xz" ]; then
-		wget -c https://www.kernel.org/pub/linux/kernel/projects/backports/stable/v4.14-rc2/backports-4.14-rc2-1.tar.xz -O backports.tar.xz
+		wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/backports/stable/v5.3-rc4/backports-5.3-rc4-1.tar.xz -O backports.tar.xz
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download backports ..."
 			exit 1
@@ -68,7 +67,7 @@ if [ ${BUILD} -eq 1 ]; then
 	fi
 
 	if [ ! -f "${MATRIX_RTL8187_PATCH}" ]; then
-		wget https://raw.githubusercontent.com/matrix/backports-rtl8187/master/rtl8187-matrix.patch -O rtl8187-matrix.patch
+		wget https://raw.githubusercontent.com/JumpOff7667/backports-rtl8187/master/rtl8187-matrix.patch -O rtl8187-matrix.patch
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download rtl8187 matrix patch ..."
 			exit 1
@@ -76,7 +75,7 @@ if [ ${BUILD} -eq 1 ]; then
 	fi
 
 	if [ ! -f "${KALI_INJECTION_PATCH}" ]; then
-		wget 'http://git.kali.org/gitweb/?p=packages/linux.git;a=blob_plain;f=debian/patches/features/all/kali-wifi-injection.patch;hb=refs/heads/kali/master' -O kali-wifi-injection.patch
+		wget https://raw.githubusercontent.com/JumpOff7667/backports-rtl8187/master/kali-wifi-injection.patch -O kali-wifi-injection.patch
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download wifi injection kali patch ..."
 			exit 1
@@ -94,7 +93,7 @@ if [ ${BUILD} -eq 1 ]; then
 	cd tmp/backports && \
 		patch -p1 --dry-run < ${MATRIX_RTL8187_PATCH} && patch -p1 < ${MATRIX_RTL8187_PATCH} && \
 		patch -p1 --dry-run < ${KALI_INJECTION_PATCH} && patch -p1 < ${KALI_INJECTION_PATCH} && \
-		make defconfig-rtl8187 && make && cd - &> /dev/null
+		make defconfig-wifi && make && cd - &> /dev/null
 
 	if [ $? -ne 0 ]; then
 		echo "! Failed to build rtl8187 wireless driver."
