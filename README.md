@@ -24,7 +24,7 @@ for *rtl8187* based wifi adapters (tested with *hostapd*).
 
 ## Prerequisite
 
-You need to install the following packages to be able to build:
+You need to install the following packages (bison and flex) using the following command to be able to build:
 ```apt-get install bison flex```
 
 ## Building
