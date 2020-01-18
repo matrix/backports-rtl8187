@@ -43,6 +43,11 @@ If you want, you can uninstall *backports-rtl8187* by using the script:
 ```sh
 $ ./build.sh -u
 ```
+If you want cleanup the workdir tree:
+```sh
+$ ./build.sh -c
+```
+
 
 <br>
 That's all folks ;)

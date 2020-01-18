@@ -5,6 +5,7 @@
 MATRIX_RTL8187_PATCH="${PWD}/rtl8187-matrix.patch"
 KALI_INJECTION_PATCH="${PWD}/kali-wifi-injection.patch"
 
+CLEAN=0
 BUILD=0
 INSTALL=0
 UNINSTALL=0
@@ -17,6 +18,7 @@ fi
 function usage()
 {
 	echo -e "> Usage $0 <options>\n\noptions:\n" \
+		"\t-c\t Cleanup workdir.\n" \
 		"\t-b\t Build rtl8187 kernel wireless driver.\n" \
 		"\t-i\t Install rtl8187 kernel wireless.\n" \
 		"\t-u\t Uninstall rtl8187 kernel wireless.\n"
@@ -27,8 +29,11 @@ if [ $# -eq 0 ]; then
 	exit 1
 fi
 
-while getopts ":biu" opt; do
+while getopts ":cbiu" opt; do
 	case $opt in
+		c)
+			CLEAN=1
+			;;
 		b)
 			BUILD=1
 			;;
@@ -55,12 +60,16 @@ if ([ ${INSTALL} -eq 1 ] && [ ${UNINSTALL} -eq 1 ]) ||
 	exit 1
 fi
 
+if [ ${CLEAN} -eq 1 ]; then
+	rm -rf tmp backports.tar.xz
+fi
+
 if [ ${BUILD} -eq 1 ]; then
 
 	rm -rf tmp
 
 	if [ ! -f "backports.tar.xz" ]; then
-		wget -c https://www.kernel.org/pub/linux/kernel/projects/backports/stable/v4.14-rc2/backports-4.14-rc2-1.tar.xz -O backports.tar.xz
+		wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/backports/stable/v5.4-rc8/backports-5.4-rc8-1.tar.xz -O backports.tar.xz
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download backports ..."
 			exit 1
@@ -76,7 +85,7 @@ if [ ${BUILD} -eq 1 ]; then
 	fi
 
 	if [ ! -f "${KALI_INJECTION_PATCH}" ]; then
-		wget 'http://git.kali.org/gitweb/?p=packages/linux.git;a=blob_plain;f=debian/patches/features/all/kali-wifi-injection.patch;hb=refs/heads/kali/master' -O kali-wifi-injection.patch
+		wget 'https://gitlab.com/kalilinux/packages/linux/raw/kali/master/debian/patches/features/all/kali-wifi-injection.patch?inline=false' -O kali-wifi-injection.patch
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download wifi injection kali patch ..."
 			exit 1
