@@ -10,11 +10,6 @@ BUILD=0
 INSTALL=0
 UNINSTALL=0
 
-if [ $EUID -eq 0 ]; then
-	echo "This script must not be run as root" 1>&2
-	exit 1
-fi
-
 function usage()
 {
 	echo -e "> Usage $0 <options>\n\noptions:\n" \
@@ -69,7 +64,7 @@ if [ ${BUILD} -eq 1 ]; then
 	rm -rf tmp
 
 	if [ ! -f "backports.tar.xz" ]; then
-		wget -c https://mirrors.edge.kernel.org/pub/linux/kernel/projects/backports/stable/v5.4-rc8/backports-5.4-rc8-1.tar.xz -O backports.tar.xz
+		wget -c https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.8-rc2/backports-5.8-rc2-1.tar.gz -O backports.tar.xz
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download backports ..."
 			exit 1
