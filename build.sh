@@ -64,7 +64,7 @@ if [ ${BUILD} -eq 1 ]; then
 	rm -rf tmp
 
 	if [ ! -f "backports.tar.xz" ]; then
-		wget -c https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.8-rc2/backports-5.8-rc2-1.tar.xz -O backports.tar.xz
+		wget -c https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.9.12/backports-5.9.12-1.tar.xz -O backports.tar.xz
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download backports ..."
 			exit 1
