@@ -26,7 +26,7 @@ for *rtl8187* based wifi adapters (tested with *hostapd*).
 
 1. You need clone this repository:
 ```sh
-$ git clone https://github.com/matrix/backports-rtl8187
+$ git clone https://github.com/grm34/backports-rtl8187
 ```
 2. Proceed to build *backports-rtl8187*:
 ```sh
