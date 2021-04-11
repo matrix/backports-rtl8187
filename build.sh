@@ -1,9 +1,10 @@
 #!/bin/bash
-#
-# ~matrix
 
 MATRIX_RTL8187_PATCH="${PWD}/rtl8187-matrix.patch"
 KALI_INJECTION_PATCH="${PWD}/kali-wifi-injection.patch"
+BACKPORTS_URL="https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.10.16/backports-5.10.16-1.tar.xz"
+INJECTION_PATCH_URL="https://gitlab.com/kalilinux/packages/linux/raw/kali/master/debian/patches/features/all/kali-wifi-injection.patch?inline=false"
+MATRIX_PATCH_URL="https://raw.githubusercontent.com/matrix/backports-rtl8187/master/rtl8187-matrix.patch"
 
 CLEAN=0
 BUILD=0
@@ -64,7 +65,7 @@ if [ ${BUILD} -eq 1 ]; then
 	rm -rf tmp
 
 	if [ ! -f "backports.tar.xz" ]; then
-		wget -c https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.10.16/backports-5.10.16-1.tar.xz -O backports.tar.xz
+		wget -c ${BACKPORTS_URL} -O backports.tar.xz
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download backports ..."
 			exit 1
@@ -72,7 +73,7 @@ if [ ${BUILD} -eq 1 ]; then
 	fi
 
 	if [ ! -f "${MATRIX_RTL8187_PATCH}" ]; then
-		wget https://raw.githubusercontent.com/matrix/backports-rtl8187/master/rtl8187-matrix.patch -O rtl8187-matrix.patch
+		wget ${MATRIX_PATCH_URL} -O rtl8187-matrix.patch
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download rtl8187 matrix patch ..."
 			exit 1
@@ -80,7 +81,7 @@ if [ ${BUILD} -eq 1 ]; then
 	fi
 
 	if [ ! -f "${KALI_INJECTION_PATCH}" ]; then
-		wget 'https://gitlab.com/kalilinux/packages/linux/raw/kali/master/debian/patches/features/all/kali-wifi-injection.patch?inline=false' -O kali-wifi-injection.patch
+		wget ${INJECTION_PATCH_URL} -O kali-wifi-injection.patch
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download wifi injection kali patch ..."
 			exit 1
