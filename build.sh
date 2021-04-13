@@ -20,7 +20,7 @@ if [[ -z ${OS_DIST} ]]; then
 	exit 2
 fi
 
-if [[ "${OS_DIST}" != "Kali" ]]; then
+if [[ ${OS_DIST} != "Kali" ]]; then
 	if [[ $EUID -eq 0 ]]; then
 		echo "! This script must not be run as root" 1>&2
 		exit 1
@@ -91,15 +91,15 @@ if [[ ${BUILD} -eq 1 ]]; then
 		fi
 	fi
 
-	if [[ ! -f "${MATRIX_RTL8187_PATCH}" ]]; then
-		if wget ${MATRIX_PATCH_URL} -O rtl8187-matrix.patch; then
+	if [[ ! -f ${MATRIX_RTL8187_PATCH} ]]; then
+		if ! wget ${MATRIX_PATCH_URL} -O rtl8187-matrix.patch; then
 			echo "! Failed to download rtl8187 matrix patch ..."
 			exit 1
 		fi
 	fi
 
-	if [[ ! -f "${KALI_INJECTION_PATCH}" ]]; then
-		if wget "${INJECTION_PATCH_URL}" -O kali-wifi-injection.patch; then
+	if [[ ! -f ${KALI_INJECTION_PATCH} ]]; then
+		if ! wget "${INJECTION_PATCH_URL}" -O kali-wifi-injection.patch; then
 			echo "! Failed to download wifi injection kali patch ..."
 			exit 1
 		fi
