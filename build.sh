@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# forked from matrix/backports-rtl8187
+# ~matrix
 
 MATRIX_RTL8187_PATCH="${PWD}/rtl8187-matrix.patch"
 KALI_INJECTION_PATCH="${PWD}/kali-wifi-injection.patch"
