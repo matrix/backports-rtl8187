@@ -3,7 +3,7 @@ diff -Naur backports-4.14-rc2-1/drivers/net/wireless/realtek/rtl818x/rtl8187/dev
 +++ backports-4.14-rc2-1.new/drivers/net/wireless/realtek/rtl818x/rtl8187/dev.c	2017-11-10 12:14:44.280910405 +0100
 @@ -1113,6 +1113,7 @@
  		goto exit;
- 
+
  	switch (vif->type) {
 +	case NL80211_IFTYPE_AP:
  	case NL80211_IFTYPE_STATION:
@@ -17,7 +17,7 @@ diff -Naur backports-4.14-rc2-1/drivers/net/wireless/realtek/rtl818x/rtl8187/dev
 +	dev->wiphy->interface_modes = BIT(NL80211_IFTYPE_AP) |
 +				      BIT(NL80211_IFTYPE_STATION) |
  				      BIT(NL80211_IFTYPE_ADHOC) ;
- 
+
  	wiphy_ext_feature_set(dev->wiphy, NL80211_EXT_FEATURE_CQM_RSSI_LIST);
 diff -Naur backports-4.14-rc2-1/defconfigs/rtl8187 backports-4.14-rc2-1.new/defconfigs/rtl8187
 --- backports-4.14-rc2-1/defconfigs/rtl8187	1970-01-01 01:00:00.000000000 +0100
@@ -42,4 +42,3 @@ diff -Naur backports-4.14-rc2-1/defconfigs/rtl8187 backports-4.14-rc2-1.new/defc
 +CPTCFG_WLAN_VENDOR_REALTEK=y
 +CPTCFG_RTL8187=m
 +CPTCFG_RTL8187_LEDS=y
-
