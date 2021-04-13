@@ -5,8 +5,8 @@
 MATRIX_RTL8187_PATCH="${PWD}/rtl8187-matrix.patch"
 KALI_INJECTION_PATCH="${PWD}/kali-wifi-injection.patch"
 BACKPORTS_URL="https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.10.16/backports-5.10.16-1.tar.xz"
-INJECTION_PATCH_URL="https://gitlab.com/kalilinux/packages/linux/raw/kali/master/debian/patches/features/all/kali-wifi-injection.patch?inline=false"
-MATRIX_PATCH_URL="https://raw.githubusercontent.com/grm34/backports-rtl8187/master/rtl8187-matrix.patch"
+INJECTION_PATCH_URL="https://raw.githubusercontent.com/matrix/backports-rtl8187/master/kali-wifi-injection.patch"
+MATRIX_PATCH_URL="https://raw.githubusercontent.com/matrix/backports-rtl8187/master/rtl8187-matrix.patch"
 
 CLEAN=0
 BUILD=0
