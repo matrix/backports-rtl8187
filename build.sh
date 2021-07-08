@@ -79,11 +79,10 @@ if [ ${CLEAN} -eq 1 ]; then
 fi
 
 if [ ${BUILD} -eq 1 ]; then
-
 	rm -rf tmp
 
 	if [ ! -f "backports.tar.xz" ]; then
-		wget -c https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.8/backports-5.8-1.tar.xz -O backports.tar.xz
+		wget -c https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.10.42/backports-5.10.42-1.tar.xz -O backports.tar.xz
 
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download backports ..."
@@ -135,7 +134,7 @@ if [ ${INSTALL} -eq 1 ]; then
 		exit 1
 	fi
 
-	cd tmp/backports && sudo make modules_install
+	cd tmp/backports && make modules_install
 
 	if [ $? -ne 0 ]; then
 		echo "! Failed to install rtl8187 wireless driver."
@@ -156,7 +155,7 @@ if [ ${UNINSTALL} -eq 1 ]; then
 		exit 1
 	fi
 
-	cd tmp/backports && sudo make uninstall
+	cd tmp/backports && make uninstall
 
 	if [ $? -ne 0 ]; then
 		echo "! Failed to uninstall rtl8187 wireless driver."

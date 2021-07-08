@@ -1,3 +1,14 @@
+--- backports-4.14-rc2-1/net/wireless/Makefile	2021-06-06 10:16:08.373836300 -0400
++++ backports-4.14-rc2-1.new/net/wireless/Makefile	2021-07-08 11:17:52.919132041 -0400
+@@ -24,7 +24,7 @@
+ cfg80211-y += extra-certs.o
+ endif
+ 
+-$(obj)/shipped-certs.c: $(wildcard $(backport_srctree)/$(src)/certs/*.hex)
++$(obj)/shipped-certs.c: $(wildcard $(backport_srctree)/net/wireless/certs/*.hex)
+ 	@$(kecho) "  GEN     $@"
+ 	@(echo '#include "reg.h"'; \
+ 	  echo 'const u8 shipped_regdb_certs[] = {'; \
 diff -Naur backports-4.14-rc2-1/drivers/net/wireless/realtek/rtl818x/rtl8187/dev.c backports-4.14-rc2-1.new/drivers/net/wireless/realtek/rtl818x/rtl8187/dev.c
 --- backports-4.14-rc2-1/drivers/net/wireless/realtek/rtl818x/rtl8187/dev.c	2017-09-30 18:00:14.000000000 +0200
 +++ backports-4.14-rc2-1.new/drivers/net/wireless/realtek/rtl818x/rtl8187/dev.c	2017-11-10 12:14:44.280910405 +0100
