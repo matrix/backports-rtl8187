@@ -17,16 +17,9 @@ if [ -z ${OS_DIST} ]; then
 	exit 2
 fi
 
-if [ "${OS_DIST}" != "Kali" ]; then
-	if [ $EUID -eq 0 ]; then
-		echo "! This script must not be run as root" 1>&2
-		exit 1
-	fi
-else
-	if [ $EUID -ne 0 ]; then
-		echo "! This script must be run as root" 1>&2
-		exit 1
-	fi
+if [ $EUID -ne 0 ]; then
+	echo "! This script must be run as root" 1>&2
+	exit 1
 fi
 
 function usage()
