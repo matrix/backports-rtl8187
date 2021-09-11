@@ -72,7 +72,7 @@ if [ ${BUILD} -eq 1 ]; then
 	fi
 
 	if [ ! -f "${MATRIX_RTL8187_PATCH}" ]; then
-		wget --no-check-certificate https://raw.githubusercontent.com/matrix/backports-rtl8187/master/rtl8187-matrix.patch -O rtl8187-matrix.patch
+		wget --no-check-certificate https://raw.githubusercontent.com/xpz3/backports-rtl8187/master/rtl8187-matrix.patch -O rtl8187-matrix.patch
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download rtl8187 matrix patch ..."
 			exit 1
