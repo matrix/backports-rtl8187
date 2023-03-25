@@ -3,6 +3,8 @@
 # ~matrix
 
 MATRIX_RTL8187_PATCH="${PWD}/rtl8187-matrix.patch"
+MATRIX_BACKPORTS_V6X_PATCH="${PWD}/backports-matrix-v6.x.patch"
+
 KALI_INJECTION_PATCH="${PWD}/kali-wifi-injection.patch"
 
 CLEAN=0
@@ -75,8 +77,7 @@ if [ ${BUILD} -eq 1 ]; then
 	rm -rf tmp
 
 	if [ ! -f "backports.tar.xz" ]; then
-		wget -c https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.10.42/backports-5.10.42-1.tar.xz -O backports.tar.xz
-
+		wget -c https://cdn.kernel.org/pub/linux/kernel/projects/backports/stable/v5.15.92/backports-5.15.92-1.tar.xz -O backports.tar.xz
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download backports ..."
 			exit 1
@@ -87,6 +88,14 @@ if [ ${BUILD} -eq 1 ]; then
 		wget https://raw.githubusercontent.com/matrix/backports-rtl8187/master/rtl8187-matrix.patch -O rtl8187-matrix.patch
 		if [ $? -ne 0 ]; then
 			echo "! Failed to download rtl8187 matrix patch ..."
+			exit 1
+		fi
+	fi
+
+	if [ ! -f "${MATRIX_BACKPORTS_V6X_PATCH}" ]; then
+		wget https://raw.githubusercontent.com/matrix/backports-rtl8187/master/backports-matrix-v6.x.patch -O backports-matrix-v6.x.patch
+		if [ $? -ne 0 ]; then
+			echo "! Failed to download backports matrix v6.x patch ..."
 			exit 1
 		fi
 	fi
@@ -105,6 +114,17 @@ if [ ${BUILD} -eq 1 ]; then
 		echo "! Failed to extrack backports ..."
 		rm -rf backports.tar.xz
 		exit 1
+	fi
+
+	kver=$(uname -r | cut -d. -f1)
+
+	if [ ${kver} -eq 6 ]; then
+		cd tmp/backports && patch -p1 --dry-run < ${MATRIX_BACKPORTS_V6X_PATCH} &>/dev/null && patch -p1 < ${MATRIX_BACKPORTS_V6X_PATCH} && cd - &> /dev/null
+
+		if [ $? -ne 0 ]; then
+			echo "! Failed to patch backports for kernel 6.x"
+			exit 1
+		fi
 	fi
 
 	cd tmp/backports && \
